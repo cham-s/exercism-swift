@@ -14,6 +14,7 @@ class SpaceAgeTests: XCTestCase {
 
     func testAgeInMercuryYears() {
         let age = SpaceAge(2_134_835_688)
+        XCTAssertEqual(67.65, age.onEarth)
         XCTAssertEqual(280.88, age.onMercury)
     }
 
