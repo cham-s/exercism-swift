@@ -3,23 +3,20 @@
 import Foundation
 
 extension String {
-    func isEmptyOfWord() -> Bool {
+    var isEmptyOfWord: Bool {
         return isEmpty || (filter { return $0 != " " }).isEmpty
     }
     
-    func hasQuestionMarkAtTheEnd() -> Bool {
-        return self.last == "?"
+    var hasQuestionMarkAtTheEnd: Bool {
+        return self.hasSuffix("?")
     }
     
-    func isAllUpperCased() -> Bool {
+    var isAllUpperCased: Bool {
         return self.uppercased() == self
     }
     
-    func hasLetter() -> Bool {
-        let pattern = "\\p{letter}"
-        let regex = try! NSRegularExpression(pattern: pattern, options: [])
-        let matches = regex.matches(in: self, options: [], range: NSRange(location: 0, length: self.count))
-        return matches.isEmpty.NOT
+    var hasLetter: Bool {
+        return (self.rangeOfCharacter(from: .letters)) != nil
     }
 }
 
@@ -32,11 +29,11 @@ extension Bool {
 struct Bob {
     static func hey(_ input: String) -> String {
         switch input {
-        case let string where string.isEmptyOfWord():
+        case let string where string.isEmptyOfWord:
             return "Fine. Be that way!"
-        case let string where string.isAllUpperCased() && string.hasLetter():
+        case let string where string.isAllUpperCased && string.hasLetter:
             return "Whoa, chill out!"
-        case let string where string.hasQuestionMarkAtTheEnd():
+        case let string where string.hasQuestionMarkAtTheEnd:
             return "Sure."
         default:
             return "Whatever."
