@@ -24,7 +24,7 @@ struct DNA {
     
     func counts() -> [String: Int] {
         var strandsCount: [String: Int] = [ "A": 0, "T": 0, "C": 0, "G": 0 ]
-        for character in strand { strandsCount[String(character)]! += 1 }
+        for character in strand { strandsCount[String(character)] = count(character) }
         return strandsCount
     }
 }
