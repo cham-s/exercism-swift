@@ -9,19 +9,21 @@ struct Grains {
         case inputTooLow(String)
     }
     
-    static var total: Decimal {
-        let maxSquare = 64
-        return (1...maxSquare).map { $0 == 1 ? 1.0 :  pow(2, $0 - 1) }.reduce(0, +)
+    static var total: UInt64 {
+        let maxSquare: UInt64 = 64
+        let squares = (1...maxSquare).map { $0 == 1 ? 1 :  UInt64(pow(Double(2), Double($0) - 1)) }
+        return squares.reduce(0) { $0 + $1 }
     }
     
-    static func square(_ number: Int) throws -> Decimal {
+    static func square(_ number: Int) throws -> UInt64 {
         switch number {
         case let number where number < 1:
             throw GrainsError.inputTooLow("Input[\(number)] invalid. Input should be between 1 and 64 (inclusive)")
         case let number where number > 64:
             throw GrainsError.inputTooHigh("Input[\(number)] invalid. Input should be between 1 and 64 (inclusive)")
         default:
-            return number == 1 ? 1.0 :  pow(2, number - 1)
+            return UInt64(number == 1 ? 1.0 :  pow(Double(2), Double(number) - 1))
         }
     }
 }
+
