@@ -54,3 +54,4 @@ class HammingTests: XCTestCase {
         ]
     }
 }
+
