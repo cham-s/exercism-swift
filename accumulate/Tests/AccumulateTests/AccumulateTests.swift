@@ -64,24 +64,24 @@ class AccumulateTests: XCTestCase {
         XCTAssertEqual(expected, result)
     }
 
-//    func testAccumulateRecursively() {
-//        let input =   ["a", "b", "c"]
-//        let expected = [
-//            ["a1", "a2", "a3"],
-//            ["b1", "b2", "b3"],
-//            ["c1", "c2", "c3"]
-//        ]
-//        func recurse(_ input: String) -> [String] {
-//            func appendTo(_ innerInput: String) -> String {
-//                return input+innerInput
-//            }
-//            let result = ["1", "2", "3"].accumulate(appendTo)
-//            return result
-//        }
-//        let result = input.accumulate(recurse)
-//
-//        XCTAssertEqualMultiArray(expected, result)
-//    }
+    func testAccumulateRecursively() {
+        let input =   ["a", "b", "c"]
+        let expected = [
+            ["a1", "a2", "a3"],
+            ["b1", "b2", "b3"],
+            ["c1", "c2", "c3"]
+        ]
+        func recurse(_ input: String) -> [String] {
+            func appendTo(_ innerInput: String) -> String {
+                return input+innerInput
+            }
+            let result = ["1", "2", "3"].accumulate(appendTo)
+            return result
+        }
+        let result = input.accumulate(recurse)
+
+        XCTAssertEqualMultiArray(expected, result)
+    }
 
     static var allTests: [(String, (AccumulateTests) -> () throws -> Void)] {
         return [
@@ -89,7 +89,7 @@ class AccumulateTests: XCTestCase {
             ("testAccumulateSquares", testAccumulateSquares),
             ("testAccumulateUpcases", testAccumulateUpcases),
             ("testAccumulateReversedStrings", testAccumulateReversedStrings),
-//            ("testAccumulateRecursively", testAccumulateRecursively),
+            ("testAccumulateRecursively", testAccumulateRecursively),
         ]
     }
 }

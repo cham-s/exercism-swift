@@ -1,11 +1,20 @@
 //Solution goes in Sources
 
+import Foundation
+
+
 extension Array {
-    func accumulate(_ accumulator: (Element) -> Element) -> [Element] {
-        var newArray = [Element]()
-        for element in self {
-            newArray.append(accumulator(element))
+    
+    func accumulate<T>(_ f: (Element) -> T) -> [T] {
+        
+        var newArray = [T]()
+        
+        for item in self {
+            let processed = f(item)
+            newArray.append(processed)
         }
+        
         return newArray
     }
+    
 }
