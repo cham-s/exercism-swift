@@ -1,9 +1,12 @@
 //Solution goes in Sources
 
+import Foundation
+
 struct Clock {
     typealias Minutes = Int
     typealias Hours = Int
     let minutesInAnHour: Minutes = 60
+    let dayInHours = 24
     var hours: Hours
     var minutes: Minutes
     
@@ -14,8 +17,9 @@ struct Clock {
     
     var description: String {
         let totalMinutes: Minutes = (hours * minutesInAnHour) + minutes
-        let finalHours: Hours = totalMinutes / minutesInAnHour
+        let finalHours: Hours = (totalMinutes / minutesInAnHour) % dayInHours
         let finalMinutes: Minutes = totalMinutes % minutesInAnHour
-        return String(format: "%d:%d", finalHours, finalMinutes)
+        return String(format: "%02d:%02d", finalHours, finalMinutes)
     }
 }
+
