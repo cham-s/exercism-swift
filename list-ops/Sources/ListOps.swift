@@ -1,47 +1,75 @@
 //Solution goes in Sources
 
 struct ListOps {
-    
-    func length<Element>(array: [Element]) -> Int {
-        var i = 0
-        for _ in array { i += 1 }
-        return i
+    static func append<Element>(_ destination: [Element],
+                                _ source: [Element]) -> [Element] {
+        return destination + source
     }
     
-    func append<Element>(_ first: [Element], other: [Element]) -> [Element] {
-        return first + other
-    }
-    func filter<Element>(_ elements: [Element], operation: (Element) -> Bool) -> [Element] {
-        var newArray = [Element]()
-        for element in elements{
-            if operation(element) {
-                newArray = append(newArray, other: [element])
-            }
+    static func concat<Element>(_ list: [Element]...) -> [Element] {
+        var array: [Element] = []
+        for item in list {
+            array = ListOps.append(array, item)
         }
-        return elements
+        return array
     }
     
-    func concat<Element>(_ original: [Element], others: [Element]...) -> [Element] {
-        var newArray = [Element]()
-        for other in others {
-                newArray = append(newArray, other: other)
+    static func filter<Element>(_ source: [Element],
+                                _ predicate: (Element) -> Bool) -> [Element] {
+        var array: [Element] = []
+        for item in source where predicate(item) == true {
+            array = ListOps.append(array, [item])
         }
-        return newArray
+        return array
     }
     
-    func map<Element>(original: [Element], operation: (Element) -> Element) -> [Element] {
-        var newArray = [Element]()
-        for element in original {
-            newArray = append(newArray, other: [operation(element)])
+    static func length<Element>(_ source: [Element]) -> Int {
+        var count = 0
+        for _ in source {
+            count += 1
         }
-        return newArray
+        return count
     }
     
-    func reverse<Element>(_ elements: [Element]) -> [Element] {
-        var newArray = [Element]()
-        var index = elements.startIndex
-        for element in  {
-            
+    static func map<Element>(_ source: [Element],
+                             _ transform: (Element) -> Element) -> [Element] {
+        var array: [Element] = []
+        for item in source {
+            array = ListOps.append(array, [transform(item)])
         }
+        return array
+    }
+    
+    static func foldLeft<Element>(_ source: [Element],
+                                  accumulated: Element,
+                                  combine: (Element, Element) -> Element) -> Element {
+        var result = accumulated
+        for item in source {
+            result = combine(result, item)
+        }
+        return result
+    }
+    
+    static func foldRight<Element>(_ source: [Element],
+                                   accumulated: Element,
+                                   combine: (Element, Element) -> Element) -> Element {
+        var result = accumulated
+        for item in ListOps.reverse(source) {
+            result = combine(item, result)
+        }
+        return result
+    }
+    
+    static func reverse<Element>(_ source: [Element]) -> [Element] {
+        let count = ListOps.length(source)
+        var index = count - 1
+        var array: [Element] = []
+        
+        while index >= 0 {
+            array = ListOps.append(array, [source[index]])
+            index -= 1
+        }
+        
+        return array
     }
 }
