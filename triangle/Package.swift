@@ -3,19 +3,19 @@
 import PackageDescription
 
 let package = Package(
-    name: "Clock",
+    name: "Triangle",
     products: [
         .library(
-            name: "Clock",
-            targets: ["Clock"]),
+            name: "Triangle",
+            targets: ["Triangle"]),
     ],
     dependencies: [],
     targets: [
         .target(
-            name: "Clock",
+            name: "Triangle",
             dependencies: []),
         .testTarget(
-            name: "ClockTests",
-            dependencies: ["Clock"]),
+            name: "TriangleTests",
+            dependencies: ["Triangle"]),
     ]
 )
