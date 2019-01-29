@@ -7,7 +7,6 @@ struct Robot {
     
     init() {
         name = generateName()
-        Robot.names.insert(name)
     }
     
     mutating func resetName() {
