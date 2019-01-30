@@ -15,7 +15,7 @@ struct Robot {
     }
     
     private func generateName() ->  String {
-        let upperAlpha = Array("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        let upperAlpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         let numbers = "0123456789"
         var name = String(upperAlpha.randomFor(2)) + String(numbers.randomFor(3))
         while Robot.names.contains(name) {
