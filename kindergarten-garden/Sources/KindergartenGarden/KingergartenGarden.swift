@@ -54,9 +54,9 @@ struct Garden {
     }
     
     
-    /// Populate the plants owner dictionary
-    /// It split the diagram string by two, then for each row it goes through
-    /// the level by two and convert each of these two from a symbol to its
+    /// Populates the plants owner dictionary
+    /// It splits the diagram string by two, then for each row it steps
+    /// the level two by two and converts each of these two, from a symbol to its
     /// corresponding Plant and append it to the correct name.
 
     private mutating func populatePlantsOwner() {
