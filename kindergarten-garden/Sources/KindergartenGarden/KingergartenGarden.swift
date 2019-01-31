@@ -53,6 +53,12 @@ struct Garden {
         return plantsOwner[name] ?? []
     }
     
+    
+    /// Populate the plants owner dictionary
+    /// It split the diagram string by two, then for each row it goes through
+    /// the level by two and convert each of these two from a symbol to its
+    /// corresponding Plant and append it to the correct name.
+
     private mutating func populatePlantsOwner() {
         let levels = diagram.components(separatedBy: "\n")
         guard levels.isEmpty == false else { return }
