@@ -24,11 +24,11 @@ struct PhoneNumber {
         let endtExchange = filtered.index(endArea, offsetBy: 3)
         let area = String(filtered[filtered.startIndex..<endArea])
         var firstNumber = Int(String(area[area.startIndex]))!
-        guard 0...9 ~= firstNumber  else { return }
+        guard 2...9 ~= firstNumber  else { return }
         
         let exchange = filtered[endArea..<endtExchange]
         firstNumber = Int(String(exchange[exchange.startIndex]))!
-        guard 0...9 ~= firstNumber  else { return }
+        guard 2...9 ~= firstNumber  else { return }
         
         self.areaCode = String(area)
         self.exchangeCode = String(exchange)
