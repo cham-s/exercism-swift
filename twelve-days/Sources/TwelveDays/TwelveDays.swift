@@ -14,15 +14,11 @@ struct TwelveDaysSong {
         ("twelfth",  "twelve", "Drummers Drumming")
     ]
     
-    public static func verses(_ lowerBound: Int, _ upperBound: Int) -> String {
-        guard lowerBound > 0 else { return "" }
+    public static func verses(_ low: Int, _ high: Int) -> String {
+        guard low > 0 else { return "" }
         
-        precondition(lowerBound < upperBound,
-                     "Fatal error: upperBound: \(upperBound) < lowerBound\(lowerBound) ")
-        return (lowerBound...upperBound).reduce("") {
-            let addLineBreak = $1 != upperBound ? "\n" : ""
-            return $0 + verse($1) + addLineBreak
-        }
+        precondition(low < high, "Fatal error: upperBound: \(low) < lowerBound\(high) ")
+        return (low...high).map { verse($0) }.joined(separator: "\n")
     }
     
     public static func verse(_ day: Int) -> String {
@@ -42,4 +38,3 @@ struct TwelveDaysSong {
         return verses(1, 12)
     }
 }
-
