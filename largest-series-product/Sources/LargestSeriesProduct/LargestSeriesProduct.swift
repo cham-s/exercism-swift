@@ -1,5 +1,6 @@
 import Foundation
 
+
 struct NumberSeries {
     enum NumberSeriesError: Error {
         case negativeSpan
@@ -32,8 +33,6 @@ struct NumberSeries {
         for startOffset in stride(from: 0, through: limit, by: 1) {
             let startIndex = number.index(number.startIndex, offsetBy: startOffset)
             let endIndex = number.index(startIndex, offsetBy: span)
-            let slice = number[startIndex..<endIndex]
-            print(slice)
             let product = number[startIndex..<endIndex]
                 .map { Int(String($0))! }.reduce(1, *)
             largest = product > largest ? product : largest
