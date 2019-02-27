@@ -8,18 +8,10 @@ struct Matrix {
     }
     
     var columns: [[Int]] {
-        var array: [[Int]] = []
-        guard rows.isEmpty == false else { return [] }
-        let count = rows.first!.count
-        
-        for col in 0..<count {
-            var numbers: [Int] = []
-            for row in rows {
-                numbers.append(row[col])
-            }
-            array.append(numbers)
+        let count = rows[0].count
+        return (0..<count).reduce([]) { partial, index in
+            partial + [ rows.map { $0[index] } ]
         }
-        return array
     }
     
     init(_ strMatrix: String) {
