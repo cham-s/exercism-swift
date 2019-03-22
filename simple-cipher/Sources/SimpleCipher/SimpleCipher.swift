@@ -1,4 +1,11 @@
+
+// First draft
+//TODO: use dictionary instead of array to sore alphabet
+// to make make finding index O(1) instead of O(n)
+// among other stuffs
+
 public extension Character {
+    public static var alphabetCount: Int { return Character.alphabet.count }
     static var alphabet : [Character] {
         return Array("abcdefghijklmnopqrstuvwxyz")
     }
@@ -17,12 +24,13 @@ public extension Character {
     public func ceasar(shiftKey: Character,
                        decode: Bool = false) -> Character? {
         guard isAlpha else { return nil }
-        let ceasrOffSet = Character.alphabet.firstIndex(of: shiftKey)!
+        let keyIndex = Character.alphabet.firstIndex(of: shiftKey)!
         var index = 0
         if decode {
-            index = abs((Character.alphabet.firstIndex(of: self)! - ceasrOffSet))
+            let selfIndex = Character.alphabet.firstIndex(of: self)!
+            index = ((Character.alphabetCount - keyIndex) + selfIndex) % Character.alphabetCount
         } else {
-            index = (Character.alphabet.firstIndex(of: self)! + ceasrOffSet) % 26
+            index = (Character.alphabet.firstIndex(of: self)! + keyIndex) % Character.alphabetCount
         }
         return Character.alphabet[index]
     }
@@ -34,11 +42,12 @@ struct Cipher {
     init() {
         var randomKey: [Character] = []
         for _ in 0..<100 {
-            randomKey.append(Character.alphabet[(0...25).randomElement()!])
+            let index = (0..<Character.alphabetCount).randomElement()!
+            let randomLetter = Character.alphabet[index]
+            randomKey.append(randomLetter)
         }
         key = String(randomKey)
     }
-    
     
     init?(key: String) {
         guard !key.isEmpty else { return nil }
@@ -50,15 +59,14 @@ struct Cipher {
     public func encode(_ input: String) -> String {
         let startKey = key.startIndex
         let end = key.index(startKey, offsetBy: input.count)
-        return String(zip(input[..<end], key).map { $0.0.ceasar(shiftKey: $0.1)! })
+        return String(zip(input, key[..<end]).map { $0.0.ceasar(shiftKey: $0.1)! })
     }
     
     public func decode(_ input: String) -> String {
         let startKey = key.startIndex
         let end = key.index(startKey, offsetBy: input.count)
-        return String(zip(input[..<end], key).map {
+        return String(zip(input, key[..<end]).map {
             $0.0.ceasar(shiftKey: $0.1, decode: true)!
         })
     }
 }
-
