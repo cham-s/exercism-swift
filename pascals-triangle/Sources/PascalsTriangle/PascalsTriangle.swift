@@ -1,28 +1,28 @@
+public extension Int {
+    func factorial() -> Int {
+        guard self > 1 else { return 1 }
+        return (1...self).reversed().reduce(1) { $0 * $1 }
+    }
+}
+
+public extension Int {
+    func choose(k: Int) -> Int {
+        return self.factorial() / (k.factorial() * (self - k).factorial())
+    }
+}
+
 class PascalsTriangle {
     
     private var size: Int
-    
     public lazy var rows: [[Int]] = {
-        var array: [[Int]] = []
-        array.reserveCapacity(size)
-        for size in 1...size {
-            var sub: [Int] = []
-            sub.reserveCapacity(size)
-            for position in 0..<size {
-                guard (size != 1 || size != 2) &&
-                    (position != 0 && position != size - 1) else {
-                        sub.append(1)
-                        continue
-                }
-                let value = array[size - 2][position - 1] + array[size - 2][position]
-                sub.append(value)
-            }
-            array.append(sub)
+        return (0...size).reduce([]) { (p1, i1) in
+            p1 + [ (0...i1).reduce([]) { (p2, i2) in
+                p2 + [i1.choose(k: i2)]
+                } ]
         }
-        return array
     }()
     
     init(_ size: Int) {
-        self.size = size
+        self.size = size - 1
     }
 }
